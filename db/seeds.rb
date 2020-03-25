@@ -8,7 +8,6 @@ Genre.destroy_all
 GenresMovie.destroy_all
 ActorMovie.destroy_all
 
-
 latest = RestClient.get("https://api.themoviedb.org/3/movie/latest?api_key=f7aed4cdd4714e239a74cd8b6e37e07f")
 latest_data = JSON.parse(latest)
 latest_id = latest_data["id"]
@@ -22,10 +21,20 @@ end
     url = "https://api.themoviedb.org/3/movie/popular?api_key=f7aed4cdd4714e239a74cd8b6e37e07f"
 resp = RestClient.get(url)
 
-data = JSON.parse(resp)
 
-data["results"].each do |movie|
-#:title, :year, :rated, :released, :runtime, :rating, :box_office,
+# def self.get_popular_movies(page_number)
+#     url = "https://api.themoviedb.org/3/movie/popular?api_key=key=f7aed4cdd4714e239a74cd8b6e37e07f&page=#{page_number}"
+#     uri = URI.parse(url)
+#     response = Net::HTTP.get_response(uri)
+#     binding.pry
+#     JSON.parse(response.body)
+# end
+
+ data = JSON.parse(resp)
+
+
+ data["results"].each do |movie|
+ #:title, :year, :rated, :released, :runtime, :rating, :box_office,
     Movie.create(title: movie["title"], runtime: movie["runtime"], released: movie["release_date"], rating:  movie["vote_average"], budget: movie["budget"],box_office: movie["revenue"])
 
 
@@ -47,4 +56,3 @@ end
 
     
        
-
