@@ -57,4 +57,3 @@ update_movie("Parasite", 132, 253882759, nil)
 update_movie("Ant-Man and the Wasp", 118, 622674139, 162000000)
 update_movie("F#*@BOIS", 80, nil, nil)
 update_movie("Knives Out", 131, 312766804, 40000000)
-binding.pry
