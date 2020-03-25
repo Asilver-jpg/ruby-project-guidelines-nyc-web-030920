@@ -47,10 +47,10 @@ resp = RestClient.get(url)
          end 
         end 
         movie["genre_ids"].each do |id|
-            GenresMovie.create(movie_id: movie["id"], genre_id: find_genre_id(id))
+            GenresMovie.create(movie_id: find_movie_id(movie["title"]), genre_id: find_genre_id(id))
         end
         actor_data["cast"].each do |actor|
-            ActorMovie.create(actor_id: find_actor_id(actor["name"]), movie_id: movie["id"])
+            ActorMovie.create(actor_id: find_actor_id(actor["name"]), movie_id: find_movie_id(movie["title"]))
     end 
 end
 
