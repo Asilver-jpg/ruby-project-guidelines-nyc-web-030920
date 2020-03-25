@@ -54,5 +54,12 @@ update_movie("Onward", 102,103181419, 135000000)
 update_movie("Bloodshot",109,28428855,45000000)
 kamen = "Kamen Rider Zi-O NEXT TIME: Geiz, Majesty"
 kamen.update(runtime: 64)
+update_movie("Sonic the Hedgehog", 99, 306766470, 85000000)
+update_movie("Jumanji Next Level", 123, 796575993, 125000000)
+update_movie("Frozen 2", 103, 1450026933, 150000000)
+update_movie("Contagion", 106, 136515867, 60000000)
+update_movie("Joker", 122, 1074251311, 55000000)
+update_movie("The Hunt", 90, 6512500, 14000000)
+update_movie("Kanunum Kanunum Kollaiyadithaal", 160, 14829, nil)
 
 
