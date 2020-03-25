@@ -45,12 +45,22 @@ data = JSON.parse(resp)
     end 
 end
 
-def update_movie(movie_title, runtime, box_office, budget)
-    movie= Movie.all.find_by(title: movie_title)
-    movie.update(runtime: runtime)
-    movie.update(box_office: box_office)
-    movie.update(budget: budget)
-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 update_movie("1917", 119, 368027644, 100000000)
 update_movie("Upin & Ipin: Keris Siamang Tunggal", 100, 83857, 4555810)
 update_movie("Parasite", 132, 253882759, nil)
