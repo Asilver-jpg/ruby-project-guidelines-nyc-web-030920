@@ -27,6 +27,9 @@ class Actor < ActiveRecord::Base
         genre_array.flatten
     end
 
+
+    
+
     def self.get_all_actor_genres
         actor_genres={}
         Actor.all.each do |actor|
@@ -57,6 +60,7 @@ class Actor < ActiveRecord::Base
             return "The actor that stars in the most genres of film is #{actor_string}, they star in #{curr_highest} genres."
         end
     end
+  
 end 
 
 def actor_plural(str)
