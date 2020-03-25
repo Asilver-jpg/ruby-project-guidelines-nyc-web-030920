@@ -44,3 +44,20 @@ data = JSON.parse(resp)
             ActorMovie.create(actor_id: find_actor_id(actor["name"]), movie_id: find_movie_id(movie["title"]))
     end 
 end
+
+
+update_movie("Ad Astra", 123, 132807427, 87500000)
+update_movie("Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",109,199158461,84500000)
+update_movie("The Invisible Man",125,122914050,84500000)
+update_movie("Star Wars: The Rise of Skywalker",142,1074144248,200000000)
+update_movie("Onward", 102,103181419, 135000000)
+update_movie("Bloodshot",109,28428855,45000000)
+kamen = "Kamen Rider Zi-O NEXT TIME: Geiz, Majesty"
+kamen.update(runtime: 64)
+update_movie("Sonic the Hedgehog", 99, 306766470, 85000000)
+update_movie("Jumanji Next Level", 123, 796575993, 125000000)
+update_movie("Frozen 2", 103, 1450026933, 150000000)
+update_movie("Contagion", 106, 136515867, 60000000)
+update_movie("Joker", 122, 1074251311, 55000000)
+update_movie("The Hunt", 90, 6512500, 14000000)
+update_movie("Kanunum Kanunum Kollaiyadithaal", 160, 14829, nil)
