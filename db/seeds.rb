@@ -46,21 +46,6 @@ data = JSON.parse(resp)
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 update_movie("1917", 119, 368027644, 100000000)
 update_movie("Upin & Ipin: Keris Siamang Tunggal", 100, 83857, 4555810)
 update_movie("Parasite", 132, 253882759, nil)
