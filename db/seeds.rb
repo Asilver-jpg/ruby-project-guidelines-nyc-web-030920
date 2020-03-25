@@ -45,6 +45,14 @@ data["results"].each do |movie|
     end 
 end
 
-    
-       
+
+update_movie("Ad Astra", 123, 132807427, 87500000)
+update_movie("Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",109,199158461,84500000)
+update_movie("The Invisible Man",125,122914050,84500000)
+update_movie("Star Wars: The Rise of Skywalker",142,1074144248,200000000)
+update_movie("Onward", 102,103181419, 135000000)
+update_movie("Bloodshot",109,28428855,45000000)
+kamen = "Kamen Rider Zi-O NEXT TIME: Geiz, Majesty"
+kamen.update(runtime: 64)
+
 

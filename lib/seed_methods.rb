@@ -23,3 +23,10 @@ end
 def find_movie_id(title)
     Movie.all.find_by(title: title).id
 end 
+
+def update_movie(movie_title, runtime, box_office, budget)
+movie= Movie.all.find_by(title: movie_title)
+movie.update(runtime: runtime)
+movie.update(box_office: box_office)
+movie.update(budget: budget)
+end
