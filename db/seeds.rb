@@ -5,7 +5,9 @@ require 'json'
 Movie.destroy_all
 Actor.destroy_all
 Genre.destroy_all
-binding.pry
+GenresMovie.destroy_all
+ActorMovie.destroy_all
+
 
 latest = RestClient.get("https://api.themoviedb.org/3/movie/latest?api_key=f7aed4cdd4714e239a74cd8b6e37e07f")
 latest_data = JSON.parse(latest)
@@ -23,17 +25,14 @@ resp = RestClient.get(url)
 data = JSON.parse(resp)
 
 data["results"].each do |movie|
-
-    Movie.create(title: movie["title"], runtime: movie["runtime"],box_office: movie["revenue"])
+#:title, :year, :rated, :released, :runtime, :rating, :box_office,
+    Movie.create(title: movie["title"], runtime: movie["runtime"], released: movie["release_date"], rating:  movie["vote_average"], budget: movie["budget"],box_office: movie["revenue"])
 
 
         resp_actor = RestClient.get("https://api.themoviedb.org/3/movie/#{movie["id"].to_s}/credits?api_key=f7aed4cdd4714e239a74cd8b6e37e07f")
         actor_data = JSON.parse(resp_actor)
 
         actor_data["cast"].each do |actor|
-            #binding.pry
-                ActorMovie.create(actor_id: actor["id"], movie_id:movie["id"])
-            
                 if !(Actor.names.include?(actor["name"]))
             Actor.create(name: actor["name"])
          end 
@@ -41,7 +40,10 @@ data["results"].each do |movie|
         movie["genre_ids"].each do |id|
             GenresMovie.create(movie_id: movie["id"], genre_id: find_genre_id(id))
         end
+        actor_data["cast"].each do |actor|
+            ActorMovie.create(actor_id: find_actor_id(actor["name"]), movie_id: movie["id"])
     end 
+end
 
     
        

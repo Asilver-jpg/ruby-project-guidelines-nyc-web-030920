@@ -3,7 +3,6 @@ class Movie < ActiveRecord::Base
     has_many :genres, through: :genre_movies
     has_many :actor_movie
     has_many :actors, through: :actor_movie
-    validates :title, presence: true 
+    validates :title,  :released, :runtime, :rating, :budget, :box_office, presence: true 
 end
 
-#:year, :rated, :released, :runtime, :rating, :box_office,

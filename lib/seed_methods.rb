@@ -16,4 +16,6 @@ end
 def find_genre_id(id)
     Genre.all.find_by(genre_id: id).id
 end
-
+def find_actor_id(name)
+    Actor.all.find_by(name: name).id
+end
