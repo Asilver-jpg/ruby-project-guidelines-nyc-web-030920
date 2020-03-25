@@ -54,6 +54,5 @@ update_movie("Onward", 102,103181419, 135000000)
 update_movie("Bloodshot",109,28428855,45000000)
 kamen = "Kamen Rider Zi-O NEXT TIME: Geiz, Majesty"
 kamen.update(runtime: 64)
-kamen.update(box_office:0)
-kamen.update(budget:0)
+
 
