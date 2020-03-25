@@ -22,4 +22,4 @@ end
 
 def find_movie_id(title)
     Movie.all.find_by(title: title).id
-end
+end 
