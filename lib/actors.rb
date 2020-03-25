@@ -25,4 +25,6 @@ class Actor < ActiveRecord::Base
         end
         genre_array.flatten
     end
+
+    
 end 

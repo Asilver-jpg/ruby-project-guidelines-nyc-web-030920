@@ -19,6 +19,19 @@ class Genre < ActiveRecord::Base
      actor_array
     end
 
+    #Genre per year. First need helper method to get all a genre's movies
+    #then need to grab the year of each and count k:v = Year: number of movies
 
+    def self.genre_movies(genre_name) #returns each movie instance associated with the genre given
+        genre_id=  Genre.all.find_by(name: genre_name).id
+        movies = GenresMovie.all.where(genre_id: genre_id)
+        movies_arr = []
+        movies.each do |movie|
+            movie_id = movie.movie_id
+            movie = Movie.find_by(id: movie_id)
+           movies_arr << movie
+        end 
+        movies_arr
+    end
 
 end
