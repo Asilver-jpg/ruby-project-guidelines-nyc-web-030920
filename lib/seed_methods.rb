@@ -19,3 +19,6 @@ end
 def find_actor_id(name)
     Actor.all.find_by(name: name).id
 end
+def find_movie_id(title)
+    Movie.all.find_by(title: title).id
+end
