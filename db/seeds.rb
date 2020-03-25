@@ -21,16 +21,7 @@ end
     url = "https://api.themoviedb.org/3/movie/popular?api_key=f7aed4cdd4714e239a74cd8b6e37e07f"
 resp = RestClient.get(url)
 
-
-# def self.get_popular_movies(page_number)
-#     url = "https://api.themoviedb.org/3/movie/popular?api_key=key=f7aed4cdd4714e239a74cd8b6e37e07f&page=#{page_number}"
-#     uri = URI.parse(url)
-#     response = Net::HTTP.get_response(uri)
-#     binding.pry
-#     JSON.parse(response.body)
-# end
-
- data = JSON.parse(resp)
+data = JSON.parse(resp)
 
 
  data["results"].each do |movie|
@@ -54,5 +45,16 @@ resp = RestClient.get(url)
     end 
 end
 
-    
-       
+def update_movie(movie_title, runtime, box_office, budget)
+    movie= Movie.all.find_by(title: movie_title)
+    movie.update(runtime: runtime)
+    movie.update(box_office: box_office)
+    movie.update(budget: budget)
+end
+update_movie("1917", 119, 368027644, 100000000)
+update_movie("Upin & Ipin: Keris Siamang Tunggal", 100, 83857, 4555810)
+update_movie("Parasite", 132, 253882759, nil)
+update_movie("Ant-Man and the Wasp", 118, 622674139, 162000000)
+update_movie("F#*@BOIS", 80, nil, nil)
+update_movie("Knives Out", 131, 312766804, 40000000)
+binding.pry
