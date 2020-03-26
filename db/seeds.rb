@@ -8,7 +8,6 @@ Genre.destroy_all
 GenresMovie.destroy_all
 ActorMovie.destroy_all
 
-
 latest = RestClient.get("https://api.themoviedb.org/3/movie/latest?api_key=f7aed4cdd4714e239a74cd8b6e37e07f")
 latest_data = JSON.parse(latest)
 latest_id = latest_data["id"]
@@ -24,8 +23,9 @@ resp = RestClient.get(url)
 
 data = JSON.parse(resp)
 
-data["results"].each do |movie|
-#:title, :year, :rated, :released, :runtime, :rating, :box_office,
+
+ data["results"].each do |movie|
+ #:title, :year, :rated, :released, :runtime, :rating, :box_office,
     Movie.create(title: movie["title"], runtime: movie["runtime"], released: movie["release_date"], rating:  movie["vote_average"], budget: movie["budget"],box_office: movie["revenue"])
 
 
@@ -46,6 +46,12 @@ data["results"].each do |movie|
 end
 
 
+update_movie("1917", 119, 368027644, 100000000)
+update_movie("Upin & Ipin: Keris Siamang Tunggal", 100, 83857, 4555810)
+update_movie("Parasite", 132, 253882759, nil)
+update_movie("Ant-Man and the Wasp", 118, 622674139, 162000000)
+update_movie("F#*@BOIS", 80, nil, nil)
+update_movie("Knives Out", 131, 312766804, 40000000)
 update_movie("Ad Astra", 123, 132807427, 87500000)
 update_movie("Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",109,199158461,84500000)
 update_movie("The Invisible Man",125,122914050,84500000)
@@ -61,5 +67,3 @@ update_movie("Contagion", 106, 136515867, 60000000)
 update_movie("Joker", 122, 1074251311, 55000000)
 update_movie("The Hunt", 90, 6512500, 14000000)
 update_movie("Kanunum Kanunum Kollaiyadithaal", 160, 14829, nil)
-
-
