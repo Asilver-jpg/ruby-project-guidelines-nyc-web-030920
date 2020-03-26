@@ -3,18 +3,26 @@ class Actor < ActiveRecord::Base
     has_many :actor_movie
     has_many :movies, through: :actor_movie
     validates :name, presence: true 
+    #get names of all actors
     def self.names
        Actor.all.map do |actor|
          actor.name
         end
     end
+    #get actor name by their id
     def self.get_actor_name_by_id(id)
         name= Actor.find_by(id: id).name
     end
+
+   #get ActorMovie based on actor's name
+   def self.get_actor_movie(actor_name)
+    actor_id= Actor.find_by(name: actor_name).id
+    movies= ActorMovie.where(actor_id: actor_id)
+    end
    
+    #return a list of all actor's genres per movie BY NAME
     def self.get_actor_genres(actor_name)
-       actor_id= Actor.find_by(name: actor_name).id
-        movies= ActorMovie.where(actor_id: actor_id)
+        movies= Actor.get_actor_movie(actor_name)
         genre_array=[]
         movies.each do |movie|
             movie_id = movie.movie_id
@@ -27,9 +35,8 @@ class Actor < ActiveRecord::Base
         genre_array.flatten
     end
 
-
     
-
+        #gets all of the actors' genres
     def self.get_all_actor_genres
         actor_genres={}
         Actor.all.each do |actor|
@@ -40,8 +47,9 @@ class Actor < ActiveRecord::Base
         actor_genres
     end
 
+    #figures out which actor has the largest range of genres
     def self.actor_largest_range
-        actor_genres= Actor.get_all_actor_genres
+        actor_genres= Actor.get_all_actor_genres.uniq
         actor_string=""
         curr_highest=0
         genre_count=0
@@ -54,15 +62,18 @@ class Actor < ActiveRecord::Base
                 actor_string += ", #{name}"
             end
         end
-        if actor_plural(actor_string)
-            return "The actors that star in the most genres of film are #{actor_string_parse(actor_string)}, they star in #{curr_highest} genres."
-        else
-            return "The actor that stars in the most genres of film is #{actor_string}, they star in #{curr_highest} genres."
-        end
+        Actor.print_actor_largest_range(actor_string, curr_highest)
     end
-  
-end 
 
+    #print statement for actor_largest range
+def self.print_actor_largest_range(actor_string, curr_highest)
+     if actor_plural(actor_string)
+        return "The actors that star in the most genres of film are #{actor_string_parse(actor_string)}, they star in #{curr_highest} genres."
+    else
+        return "The actor that stars in the most genres of film is #{actor_string}, they star in #{curr_highest} genres."
+    end
+end
+ #checks if more than one string element
 def actor_plural(str)
     actors= str.split
     if actors.count>1
@@ -71,6 +82,79 @@ def actor_plural(str)
         return false
     end 
 end
+
+ #finds the percent average of all values in a hash
+ def self.average_genre_participation_hash
+    genre_totals= Actor.genre_totals
+    total= Actor.total(genre_totals)
+    genre_percent=genre_totals.each do |key, val|
+        genre_totals[key] = ((val.to_f/total.to_f)*100).round
+    end
+    Actor.print_average_genre_participation_actors(genre_percent)
+end
+
+  #gets total of all genres 
+  def self.genre_totals
+    actor_genres = Actor.get_all_actor_genres
+    genre_percent= Hash.new(0)
+    actor_genres.each do |name, genres| 
+        genres.each do |genre|
+            genre_percent[genre] +=1
+    end
+end
+    genre_percent
+  end
+   
+  # totals up values of hash
+  def self.total(hash)
+    total=0
+    hash.each do |key,val|
+        total+=val
+    end
+    total
+  end
+
+  #print statment for average_genre_participation_hash
+  def self.print_average_genre_participation_actors(genre_percentage)
+    output =""
+    genre_percentage.each do |key, value|
+        output+= "#{key} : #{value}%" + "\n"
+    end
+        return "The percent of each genre for every movie in existance is: \n #{output}"
+  end
+
+  #% of genre for an actor
+  def self.actor_genre_participation(actor_name)
+    genres= Actor.get_actor_genres(actor_name)
+
+  end
+  
+  def self.get_actor_genres_percentage(actor_name)
+        actor_genres= Actor.get_actor_genres(actor_name)
+        actor_genre_count= Actor.count_an_actors_genres(actor_genres)
+        total= Actor.total(actor_genre_count)
+        genre_percent=actor_genre_count.each do |key, val|
+            actor_genre_count[key] = ((val.to_f/total.to_f)*100).round
+        end
+        Actor.print_actor_percent(genre_percent, actor_name)
+    end
+    def self.print_actor_percent(genre_percentage, actor_name)
+        output =""
+        genre_percentage.each do |key, value|
+            output+= "#{key} : #{value}%" + "\n"
+        end
+            return "The percent of movies per genre that #{actor_name} is in is: \n #{output}"
+    end
+    def self.count_an_actors_genres(genre_array)
+        count = Hash.new(0)
+        genre_array.each {|genre| count[genre] +=1}
+        count
+        end
+    
+end
+#end of class
+
+
 
 def actor_string_parse(str)
     actors = str.split(", ")
