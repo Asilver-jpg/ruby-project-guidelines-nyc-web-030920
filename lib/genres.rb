@@ -34,6 +34,136 @@ class Genre < ActiveRecord::Base
         movies_arr
     end
 
-    
+    def self.get_all_genres_actors
+        genre_actors={}
+        Genre.all.each do |genre|
+            if !(genre_actors[genre.name])
+                genre_actors[genre.name]=Genre.get_genres_actors(genre.name)
+            end
+        end 
+        genre_actors
+    end
+
+
+    def self.get_all_genres_movies
+        genre_movies={}
+        Genre.all.each do |genre|
+            if !(genre_movies[genre.name])
+                genre_movies[genre.name]=Genre.genre_movies(genre.name)
+            end
+        end 
+        genre_movies
+    end
+
+    def self.genre_with_most_actors #returns the genre with the most actors
+        genre_actors={}
+        Genre.all.each do |genre|
+            if !(genre_actors[genre.name])
+                genre_actors[genre.name]=Genre.genre_movies(genre.name).count
+            end
+        end 
+        x = genre_actors.first
+        puts "#{x[0]} had the most actors"
+    end
+
+    def self.genre_with_least_actors #returns the genre with the least actors
+        genre_actors={}
+        Genre.all.each do |genre|
+            if !(genre_actors[genre.name])
+                genre_actors[genre.name]=Genre.genre_movies(genre.name).count
+            end
+        end 
+       x = genre_actors.map do |k, v|
+            k if v == 0 && v != nil
+        end
+        y = x.compact
+        y.each do |final_genres|
+            puts "#{final_genres} had the least actors"
+        end
+    end
+
+    def self.genre_money(genre_name) #returns total made by all movies in genre given
+        genre_id=  Genre.all.find_by(name: genre_name).id
+        movies = GenresMovie.all.where(genre_id: genre_id)
+        movies_arr = []
+        movies.each do |movie|
+            movie_id = movie.movie_id
+            movie = Movie.find_by(id: movie_id).box_office
+            movies_arr << movie
+        end 
+        each_money = movies_arr.compact
+
+        total_money = each_money.sum
+
+    end
+
+    def self.genre_budget(genre_name) #returns total budget of all movies in genre given
+        genre_id=  Genre.all.find_by(name: genre_name).id
+        movies = GenresMovie.all.where(genre_id: genre_id)
+        movies_arr = []
+        movies.each do |movie|
+            movie_id = movie.movie_id
+            movie = Movie.find_by(id: movie_id).budget
+            movies_arr << movie
+        end
+        each_budget = movies_arr.compact
+
+        total_budget = each_budget.sum
+
+    end
+
+    def self.genre_with_most_money #returns the genre with the most money made
+        genres_money={}
+        Genre.all.each do |genre|
+            if !(genres_money[genre.name])
+                genres_money[genre.name]=Genre.genre_money(genre.name)
+            end
+        end 
+        x = genres_money.first
+        puts "#{x[0]} made the most money!"
+    end
+
+    def self.genre_with_least_money #returns the genre with the least money made
+        genres_money={}
+        Genre.all.each do |genre|
+            if !(genres_money[genre.name])
+                genres_money[genre.name]=Genre.genre_money(genre.name)
+            end
+        end 
+       x = genres_money.map do |k, v|
+            k if v == 0 && v != nil
+        end
+        y = x.compact
+        y.each do |final_genres|
+            puts "#{final_genres} had the least actors"
+        end
+    end
+
+    def self.genre_with_most_budget #returns the genre with the highet budget
+        genres_budget={}
+        Genre.all.each do |genre|
+            if !(genres_budget[genre.name])
+                genres_budget[genre.name]=Genre.genre_budget(genre.name)
+            end
+        end 
+        x = genres_budget.first
+        puts "#{x[0]} had the highest budget!"
+    end
+
+    def self.genre_with_least_budget #returns the genre with the lowest budget
+        genres_budget={}
+        Genre.all.each do |genre|
+            if !(genres_budget[genre.name])
+                genres_budget[genre.name]=Genre.genre_budget(genre.name)
+            end
+        end 
+       x = genres_budget.map do |k, v|
+            k if v == 0 && v != nil
+        end
+        y = x.compact
+        y.each do |final_genres|
+            puts "#{final_genres} had the lowest budget!"
+        end
+    end
 
 end
