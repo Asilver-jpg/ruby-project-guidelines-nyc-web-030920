@@ -4,86 +4,127 @@ Bundler.require
 require 'require_all'
 require 'tty-box'
 require 'tty-prompt'
-# require_all 'lib'
+require_all 'lib'
+$VERBOSE = nil
 # require_relative './config/environment.rb'
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
+ActiveRecord::Base.logger = nil 
 
 def banner 
     box = TTY::Box.frame(width:65, height:10, border: :thick, align: :left) do
        " 
-         _______        _   
-        |__   __|      | |  
-           | | ___  ___| |_ 
-           | |/ _ \\/ __| __|
-           | |  __/\\__ \\ |_ 
-           |_|\\___||___/\\__|
-                           
+        _______ __  __ _____  ____  
+       |__   __|  \\/  |  __\\ |  _ \\ 
+          | |  | \\  / | |  | | |_) |
+          | |  | |\\/| | |  | |  _ < 
+          | |  | |  | | |__| | |_) |
+          |_|  |_|  |_|_____/|____/ 
+                                    
+                                                                                             
+                                                                  
     " end
 
     print box 
 end
 
+@@prompt = TTY::Prompt.new
+
+def main_menu
+    @@prompt.select("Welcome, what would you like to learn about?") do |menu|
+        menu.choice 'Movies', -> {movie_choice}
+        menu.choice 'Genres', -> {genre_choice}
+        menu.choice 'Actors', -> {actor_choice}
+        menu.choice 'exit', -> {exit}
+    end
+end
+
 def run_application
-    prompt = TTY::Prompt.new 
     system("clear")
     banner
 
-main_menu = prompt.select("Welcome, what would you like to learn about?") do |menu|
-    menu.choice 'Movies'
-    menu.choice 'Genres'
-    menu.choice 'Actors'
-end
-
-if main_menu == 'Movies'
-    system("clear")
-    puts "what would you like to know about movies"
-    movie_menu = prompt.select("options") do |movie|
-        movie.choice 'most popular genres'
-        movie.choice 'most actors in a movie'
-        movie.choice 'back'
-    end
-end
-
-if movie_menu == 'back'
-    system("clear")
     main_menu
 end 
 
-if movie_menu == 'most popular genres'
-    system("clear")
-    binding.pry
-    Movie.most_produced_genre
-end 
-
-if main_menu == 'Movies'
-    system("clear")
+def movie_choice
     puts "what would you like to know about movies"
-    movie_menu = prompt.select("options") do |movie|
-        movie.choice 'most populat genres'
-        movie.choice 'most actors in a movie'
+    movie_menu = @@prompt.select("options") do |movie|
+        movie.choice 'most popular genres', -> {most_produced_genre}
+        movie.choice ''
+        movie.choice 'back', -> {main_menu}
+        movie.choice 'exit', -> {exit}
+    end
+end
+
+def keep_exploring
+    continue_resp = @@prompt.yes?('Do you want to keep exploring?')
+    if continue_resp == true
+        main_menu
+    end
+end
+
+def exit
+    exit_prompt = @@prompt.yes?('Are you sure you want to exit?')
+    if exit_prompt == false
+        main_menu
     end
 end
 
 
-if main_menu == 'Genres'
-    system("clear")
-    puts "what would you like to know about genres"
-    genre_menu = prompt.select("options") do |genre|
-        genre.choice 'most populat genres'
-        genre.choice 'all movies in a certain genre'
-    end
-end
-
-if main_menu == 'Actors'
-    system("clear")
-    puts "what would you like to know about actors"
-    actor_menu = prompt.select("options") do |actor|
-        actor.choice 'actor with most diverse genre set'
-        actor.choice 'actors genre breakdown'
-    end
-end
-
+def most_produced_genre
+   Movie.most_produced_genre
+   keep_exploring
 end 
+
+
+def genre_choice
+    puts "what would you like to know about genres"
+    genre_menu = @@prompt.select("options") do |genre|
+        genre.choice 'Which genre produces the most money?', -> {genre_most_money}
+        genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
+        genre.choice 'Which genre has the lease actors?', -> {genre_lease_actors}
+        genre.choice 'Most populat genre in a specific year', -> {genre_pop_by_year}
+        genre.choice 'back', -> {main_menu}
+        genre.choice 'exit', -> {exit}
+    end
+end
+
+def genre_pop_by_year
+    
+    keep_exploring
+end
+
+def genre_most_money
+    Genre.genre_with_most_money
+    keep_exploring
+end
+
+def genre_least_actors
+    Genre.genre_with_least_actors 
+    keep_exploring
+end
+
+def genre_biggest_budget
+    Genre.genre_with_most_budget
+    keep_exploring
+end
+
+def actor_choice
+    puts "what would you like to know about actors"
+    actor_menu = @@prompt.select("options") do |actor|
+        actor.choice 'actor with most diverse genre set', -> {most_diverse_actor}
+        actor.choice 'actors genre breakdown'
+        actor.choice 'back', -> {main_menu}
+        actor.choice 'exit', -> {exit}
+    end
+end
+
+def most_diverse_actor
+    Actor.actor_largest_range
+    keep_exploring
+end
+
+# main_menu
+
 
 run_application

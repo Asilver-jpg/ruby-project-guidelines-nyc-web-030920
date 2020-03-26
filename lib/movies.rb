@@ -17,10 +17,12 @@ class Movie < ActiveRecord::Base
         Genre.all.each do |genre|
             if !(genre_movies[genre.name])
                 genre_movies[genre.name]=Genre.genre_movies(genre.name).count
-            end
+        end
         end 
         x = genre_movies.first
-        puts "#{x[0]} appears in #{x[1]} of the top 20 films!"
+        puts "\nThe most popular genre is #{x[0]} which appears in #{x[1]} of the top 20 films!
+        \n"
+
     end
 
     def self.get_movie_genres(movie_name)
