@@ -34,4 +34,6 @@ class Genre < ActiveRecord::Base
         movies_arr
     end
 
+    
+
 end
