@@ -53,12 +53,8 @@ def self.all_text_list
 end
 
 def self.all_colors_list
-<<<<<<< HEAD
-  ["bright_black", "bright_red", "bright_green", "bright_yellow", "bright_blue", "bright_magenta", "bright_cyan", "bright_white"]
-=======
   ["white", "red", "blue", "green", "yellow", "cyan", "magenta", "bright_black", "bright_red",
         "bright_green", "bright_yellow", "bright_blue", "bright_magenta", "bright_cyan", "bright_white"]
->>>>>>> master
 end
 end
 
