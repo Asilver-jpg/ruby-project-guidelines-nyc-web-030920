@@ -68,3 +68,4 @@ update_movie("The Hunt", 90, 6512500, 14000000)
 update_movie("Kannum Kannum Kollaiyadithaal", 160, 14829, nil)
 update_movie("Knives Out", 131, 311553190, 40000000)
 update_movie("Mission: Impossible - Fallout", 147, 791115104, 178000000)
+
