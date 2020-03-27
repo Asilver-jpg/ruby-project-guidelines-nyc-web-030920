@@ -50,8 +50,7 @@ def self.all_text_list
 end
 
 def self.all_colors_list
-  ["black", "red", "green", "yellow", "blue",
-        "magenta", "cyan", "white", "bright_black", "bright_red",
+  ["bright_black", "bright_red",
         "bright_green", "bright_yellow", "bright_blue", "bright_magenta", "bright_cyan", "bright_white"]
 end
 end
