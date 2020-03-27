@@ -63,7 +63,8 @@ class Genre < ActiveRecord::Base
             end
         end 
         x = genre_actors.first
-        puts "#{x[0]} had the most actors"
+        puts "\n#{x[0]} had the most actors
+        \n"
     end
 
     def self.genre_with_least_actors #returns the genre with the least actors
@@ -77,10 +78,8 @@ class Genre < ActiveRecord::Base
             k if v == 0 && v != nil
         end
         y = x.compact
-        y.each do |final_genres|
-            puts "\n#{final_genres} had the least actors
-            \n"
-        end
+        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all had the least actors!"
+        
     end
 
     def self.genre_money(genre_name) #returns total made by all movies in genre given
@@ -136,7 +135,8 @@ class Genre < ActiveRecord::Base
             k if v == 0 && v != nil
         end
         y = x.compact
-        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all made the least money!"
+        puts "\n#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all made the least money!
+        \n"
     end
 
     def self.genre_with_most_budget #returns the genre with the highet budget
@@ -163,7 +163,8 @@ class Genre < ActiveRecord::Base
         end
         y = x.compact
 
-        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]}, #{y[4]} and #{y[5]} all had the lowest budget!"
+        puts "\n#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]}, #{y[4]} and #{y[5]} all had the lowest budget!
+        \n"
 
     end
 
