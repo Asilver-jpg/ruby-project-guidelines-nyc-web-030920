@@ -134,9 +134,7 @@ class Genre < ActiveRecord::Base
             k if v == 0 && v != nil
         end
         y = x.compact
-        y.each do |final_genres|
-            puts "#{final_genres} had the least actors"
-        end
+        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all made the least money!"
     end
 
     def self.genre_with_most_budget #returns the genre with the highet budget
@@ -161,9 +159,9 @@ class Genre < ActiveRecord::Base
             k if v == 0 && v != nil
         end
         y = x.compact
-        y.each do |final_genres|
-            puts "#{final_genres} had the lowest budget!"
-        end
+
+        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]}, #{y[4]} and #{y[5]} all had the lowest budget!"
     end
+
 
 end
