@@ -13,7 +13,10 @@ end
 def self.get_text
     Color.random_value(Color.all_text, Color.all_text_list)
 end
-
+def self.create_pie(hash, radius)
+    data= Color.create_data(hash)
+    puts TTY::Pie.new(data:data, radius:radius)
+end
 def self.get_color
     Color.random_value(Color.all_colors, Color.all_colors_list).to_sym
 end
