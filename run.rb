@@ -103,8 +103,11 @@ def genre_choice
     genre_menu = @@prompt.select("options") do |genre|
         genre.choice 'Which genre produces the most money?', -> {genre_most_money}
         genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
+        genre.choice 'Which genre has the smallest budget?', -> {genre_smallest_budget}
         genre.choice 'Which genre has the least actors?', -> {genre_least_actors}
         genre.choice 'Most popular genre in a specific year', -> {genre_pop_by_year}
+        genre.choice 'Which genre produces the least money?', -> {genre_least_money}
+        genre.choice 'Which genre has the most actors?', -> {genre_most_actors}
         genre.choice 'Back', -> {main_menu}
         genre.choice 'Exit', -> {exit}
     end
@@ -122,13 +125,30 @@ def genre_pop_by_year
         keep_exploring
 end
 
+def genre_least_money
+    Genre.genre_with_least_money
+    keep_exploring
+end
+
+
+
 def genre_most_money
     Genre.genre_with_most_money
     keep_exploring
 end
 
+def genre_most_actors
+    Genre.genre_with_most_actors 
+    keep_exploring
+end
+
 def genre_least_actors
     Genre.genre_with_least_actors 
+    keep_exploring
+end
+
+def genre_smallest_budget
+    Genre.genre_with_least_budget
     keep_exploring
 end
 
@@ -157,11 +177,14 @@ def actor_choice
 end
 
 def avg_genre_part
-    create_pie(Actor.average_genre_participation_hash, 30)
+
+    create_pie(Actor.average_genre_participation_hash, 20)
+
     keep_exploring
 end
 
 def actor_genre_breakdown
+  
     puts "Which actor do you want to know about?"
         input = get_input 
         if Actor.actor_exist?(input)
