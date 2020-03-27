@@ -63,7 +63,7 @@ def movie_choice
     print box 
     movie_menu = @@prompt.select("options") do |movie|
         movie.choice 'Most popular genre', -> {most_produced_genre}
-        movie.choice 'Genre percentages breakdown', -> {avg_genre_part}
+        movie.choice 'Distribution of movies by genre', -> {avg_genre_part}
         movie.choice 'Back', -> {main_menu}
         movie.choice 'Exit', -> {exit}
     end
@@ -146,15 +146,15 @@ def actor_choice
         end 
         print box
     actor_menu = @@prompt.select("options") do |actor|
-        actor.choice 'Actor with most diverse genre set', -> {most_diverse_actor}
-        actor.choice 'Actors genre breakdown', -> {actor_genre_breakdown}
+        actor.choice 'Actor(s) who star in the most genres', -> {most_diverse_actor}
+        actor.choice 'Percentage of genres for an actor based on their movies', -> {actor_genre_breakdown}
         actor.choice 'Back', -> {main_menu}
         actor.choice 'Exit', -> {exit}
     end
 end
 
 def avg_genre_part
-    create_pie(Actor.average_genre_participation_hash, 30)
+    create_pie(Actor.average_genre_participation_hash, 20)
     keep_exploring
 end
 
