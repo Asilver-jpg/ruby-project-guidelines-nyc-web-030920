@@ -12,16 +12,17 @@ class Movie < ActiveRecord::Base
         self.released.year
     end
 
-  
     def self.most_produced_genre #returns the genre in the most films
         genre_movies={}
         Genre.all.each do |genre|
             if !(genre_movies[genre.name])
                 genre_movies[genre.name]=Genre.genre_movies(genre.name).count
-            end
+        end
         end 
         x = genre_movies.first
-        puts "#{x[1]} of the top 20 films were #{x[0]} movies!"
+        puts "\nThe most popular genre is #{x[0]} which appears in #{x[1]} of the top 20 films!
+        \n"
+
     end
 
     def self.get_movie_genres(movie_name)
@@ -50,6 +51,14 @@ class Movie < ActiveRecord::Base
         mby
     end
 
+    def self.genre_years
+       Movie.genres_by_year.keys
+    end
+
+    def self.year_exist?(year)
+        Movie.genre_years.include?(year)
+    end
+
     def self.most_genre_in_year(year) #given a year returns the genre produced the most
        x =  Movie.genres_by_year[year]
        genres={}
@@ -60,7 +69,9 @@ class Movie < ActiveRecord::Base
                 genres[genre]+= 1
            end
        end 
-       genres.first
+       x = genres.first
+       puts "\n#{x[0]} was the most popular genre in #{year} with #{x[1]} movies!
+       \n"
     end
 
 

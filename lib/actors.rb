@@ -9,6 +9,12 @@ class Actor < ActiveRecord::Base
          actor.name
         end
     end
+
+    def self.actor_exist?(actor_name)
+        names = Actor.names
+        names.include?(actor_name)
+    end
+
     #get actor name by their id
     def self.get_actor_name_by_id(id)
         name= Actor.find_by(id: id).name
@@ -67,14 +73,14 @@ class Actor < ActiveRecord::Base
 
     #print statement for actor_largest range
 def self.print_actor_largest_range(actor_string, curr_highest)
-     if actor_plural(actor_string)
-        return "The actors that star in the most genres of film are #{actor_string_parse(actor_string)}, they star in #{curr_highest} genres."
+     if Actor.actor_plural(actor_string)
+        return "The actors that star in the most genres of film are #{actor_string_parse(actor_string)}, and they star in #{curr_highest} genres."
     else
-        return "The actor that stars in the most genres of film is #{actor_string}, they star in #{curr_highest} genres."
+        return "The actor that stars in the most genres of film is #{actor_string}. They star in #{curr_highest} genres."
     end
 end
  #checks if more than one string element
-def actor_plural(str)
+def self.actor_plural(str)
     actors= str.split
     if actors.count>1
         return true
@@ -82,6 +88,8 @@ def actor_plural(str)
         return false
     end 
 end
+
+
 
  #finds the percent average of all values in a hash
  def self.average_genre_participation_hash
@@ -120,7 +128,7 @@ end
     genre_percentage.each do |key, value|
         output+= "#{key} : #{value}%" + "\n"
     end
-        return "The percent of each genre for every movie in existance is: \n #{output}"
+        return "The percent of each genre for the top 20 movies is: \n #{output}"
   end
 
   #% of genre for an actor
