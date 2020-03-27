@@ -7,6 +7,7 @@ require 'tty-box'
 require 'tty-prompt'
 require 'tty-pie'
 require_all 'lib'
+require 'pry'
 $VERBOSE = nil
 # require_relative './config/environment.rb'
 
@@ -38,7 +39,7 @@ def main_menu
         menu.choice 'Movies', -> {movie_choice}
         menu.choice 'Genres', -> {genre_choice}
         menu.choice 'Actors', -> {actor_choice}
-        menu.choice 'exit', -> {exit}
+        menu.choice 'Exit', -> {exit}
     end
 end
 
@@ -61,10 +62,10 @@ def movie_choice
     end 
     print box 
     movie_menu = @@prompt.select("options") do |movie|
-        movie.choice 'most popular genre', -> {most_produced_genre}
-        movie.choice 'genre percentages breakdown', -> {avg_genre_part}
-        movie.choice 'back', -> {main_menu}
-        movie.choice 'exit', -> {exit}
+        movie.choice 'Most popular genre', -> {most_produced_genre}
+        movie.choice 'Genre percentages breakdown', -> {avg_genre_part}
+        movie.choice 'Back', -> {main_menu}
+        movie.choice 'Exit', -> {exit}
     end
 end
 
@@ -101,8 +102,8 @@ def genre_choice
         genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
         genre.choice 'Which genre has the least actors?', -> {genre_least_actors}
         genre.choice 'Most popular genre in a specific year', -> {genre_pop_by_year}
-        genre.choice 'back', -> {main_menu}
-        genre.choice 'exit', -> {exit}
+        genre.choice 'Back', -> {main_menu}
+        genre.choice 'Exit', -> {exit}
     end
 end
 
@@ -145,10 +146,10 @@ def actor_choice
         end 
         print box
     actor_menu = @@prompt.select("options") do |actor|
-        actor.choice 'actor with most diverse genre set', -> {most_diverse_actor}
-        actor.choice 'actors genre breakdown', -> {actor_genre_breakdown}
-        actor.choice 'back', -> {main_menu}
-        actor.choice 'exit', -> {exit}
+        actor.choice 'Actor with most diverse genre set', -> {most_diverse_actor}
+        actor.choice 'Actors genre breakdown', -> {actor_genre_breakdown}
+        actor.choice 'Back', -> {main_menu}
+        actor.choice 'Exit', -> {exit}
     end
 end
 
@@ -159,9 +160,9 @@ end
 
 def actor_genre_breakdown
     puts "Which actor do you want to know about?"
-        input = get_input
+        input = get_input 
         if Actor.actor_exist?(input)
-       create_pie(Actor.get_actor_genres_percentage(input, 10)) 
+       create_pie(Actor.get_actor_genres_percentage(input), 10)
         else 
             puts "\nThat actors is not currently in any of the top 20 movies.
             \n"

@@ -75,9 +75,11 @@ class Actor < ActiveRecord::Base
     #print statement for actor_largest range
 def self.print_actor_largest_range(actor_string, curr_highest)
      if Actor.actor_plural(actor_string)
-        return "The actors that star in the most genres of film are #{actor_string_parse(actor_string)}, and they star in #{curr_highest} genres."
+        return "\nThe actors that star in the most genres of film are #{actor_string_parse(actor_string)}, and they star in #{curr_highest} genres.
+        \n"
     else
-        return "The actor that stars in the most genres of film is #{actor_string}. They star in #{curr_highest} genres."
+        return "\nThe actor that stars in the most genres of film is #{actor_string}. They star in #{curr_highest} genres.
+        \n"
     end
 end
  #checks if more than one string element
@@ -129,7 +131,8 @@ end
     genre_percentage.each do |key, value|
         output+= "#{key} : #{value}%" + "\n"
     end
-        return "The percent of each genre for the top 20 movies is: \n #{output}"
+        return "\nThe percent of each genre for the top 20 movies is: \n #{output}
+        \n"
   end
 
   #% of genre for an actor
@@ -152,7 +155,8 @@ end
         genre_percentage.each do |key, value|
             output+= "#{key} : #{value}%" + "\n"
         end
-            return "The percent of movies per genre that #{actor_name} is in is: \n #{output}"
+            return "\nThe percent of movies per genre that #{actor_name} is in is: \n #{output}
+            \n"
     end
     def self.count_an_actors_genres(genre_array)
         count = Hash.new(0)
