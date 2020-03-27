@@ -77,9 +77,8 @@ class Genre < ActiveRecord::Base
             k if v == 0 && v != nil
         end
         y = x.compact
-        y.each do |final_genres|
-            puts "\n#{final_genres} had the least actors
-            \n"
+        puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all had the least actors!"
+            
         end
     end
 
