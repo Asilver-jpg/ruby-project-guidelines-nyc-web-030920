@@ -59,6 +59,7 @@ end
 def keep_exploring
     continue_resp = @@prompt.yes?('Do you want to keep exploring?')
     if continue_resp == true
+        
         main_menu
     end
 end
@@ -95,7 +96,8 @@ def genre_pop_by_year
         if Movie.year_exist?(input)
             puts "#{Movie.most_genre_in_year(input)}"
         else 
-            puts "None of the current top 20 movies were made in that year."
+            puts "\nNone of the current top 20 movies were made in that year.
+            \n"
         end 
         keep_exploring
 end
@@ -141,7 +143,8 @@ def actor_genre_breakdown
         if Actor.actor_exist?(input)
        puts "#{Actor.get_actor_genres_percentage(input)}" 
         else 
-            puts "That actors is not currently in any of the top 20 movies."
+            puts "\nThat actors is not currently in any of the top 20 movies.
+            \n"
         end 
         keep_exploring
 end
