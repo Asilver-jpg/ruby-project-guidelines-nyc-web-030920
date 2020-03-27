@@ -82,7 +82,10 @@ def genre_choice
     puts "what would you like to know about genres"
     genre_menu = @@prompt.select("options") do |genre|
         genre.choice 'Which genre produces the most money?', -> {genre_most_money}
-        genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
+        genre.choice 'Which genre produces the least money?', -> {genre_least_money}
+        genre.choice 'Which genre has the biggest budget?', -> {genre_biggest_budget}
+        genre.choice 'Which genre has the smalles budget?', -> {genre_smallest_budget}
+        genre.choice 'Which genre has the most actors?', -> {genre_most_actors}
         genre.choice 'Which genre has the least actors?', -> {genre_least_actors}
         genre.choice 'Most popular genre in a specific year', -> {genre_pop_by_year}
         genre.choice 'back', -> {main_menu}
@@ -107,6 +110,16 @@ def genre_most_money
     keep_exploring
 end
 
+def genre_least_money
+    Genre.genre_with_least_money
+    keep_exploring
+end
+
+def genre_most_actors
+    Genre.genre_with_most_actors
+    keep_exploring
+end
+
 def genre_least_actors
     Genre.genre_with_least_actors 
     keep_exploring
@@ -114,6 +127,11 @@ end
 
 def genre_biggest_budget
     Genre.genre_with_most_budget
+    keep_exploring
+end
+
+def genre_smallest_budget
+    Genre.genre_with_least_budget
     keep_exploring
 end
 
