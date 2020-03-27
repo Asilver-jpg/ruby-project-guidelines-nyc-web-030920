@@ -49,8 +49,8 @@ end
 def movie_choice
     puts "what would you like to know about movies"
     movie_menu = @@prompt.select("options") do |movie|
-        movie.choice 'most popular genres', -> {most_produced_genre}
-        movie.choice ''
+        movie.choice 'most popular genre', -> {most_produced_genre}
+        movie.choice 'genre percentages breakdown', -> {avg_genre_part}
         movie.choice 'back', -> {main_menu}
         movie.choice 'exit', -> {exit}
     end
@@ -82,16 +82,22 @@ def genre_choice
     genre_menu = @@prompt.select("options") do |genre|
         genre.choice 'Which genre produces the most money?', -> {genre_most_money}
         genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
-        genre.choice 'Which genre has the lease actors?', -> {genre_lease_actors}
-        genre.choice 'Most populat genre in a specific year', -> {genre_pop_by_year}
+        genre.choice 'Which genre has the least actors?', -> {genre_least_actors}
+        genre.choice 'Most popular genre in a specific year', -> {genre_pop_by_year}
         genre.choice 'back', -> {main_menu}
         genre.choice 'exit', -> {exit}
     end
 end
 
 def genre_pop_by_year
-    
-    keep_exploring
+    puts "Which year do you want to know about?"
+        input = get_input.to_i
+        if Movie.year_exist?(input)
+            puts "#{Movie.most_genre_in_year(input)}"
+        else 
+            puts "None of the current top 20 movies were made in that year."
+        end 
+        keep_exploring
 end
 
 def genre_most_money
@@ -109,22 +115,41 @@ def genre_biggest_budget
     keep_exploring
 end
 
+def get_input
+    input = gets.chomp
+    input 
+end
+
 def actor_choice
     puts "what would you like to know about actors"
     actor_menu = @@prompt.select("options") do |actor|
         actor.choice 'actor with most diverse genre set', -> {most_diverse_actor}
-        actor.choice 'actors genre breakdown'
+        actor.choice 'actors genre breakdown', -> {actor_genre_breakdown}
         actor.choice 'back', -> {main_menu}
         actor.choice 'exit', -> {exit}
     end
 end
 
-def most_diverse_actor
-    Actor.actor_largest_range
+def avg_genre_part
+    puts "#{Actor.average_genre_participation_hash}"
     keep_exploring
 end
 
-# main_menu
+def actor_genre_breakdown
+    puts "Which actor do you want to know about?"
+        input = get_input
+        if Actor.actor_exist?(input)
+       puts "#{Actor.get_actor_genres_percentage(input)}" 
+        else 
+            puts "That actors is not currently in any of the top 20 movies."
+        end 
+        keep_exploring
+end
+
+def most_diverse_actor
+    puts "#{Actor.actor_largest_range}"
+    keep_exploring
+end
 
 
 run_application
