@@ -78,8 +78,7 @@ class Genre < ActiveRecord::Base
         end
         y = x.compact
         puts "#{y[0]}, #{y[1]}, #{y[2]}, #{y[3]} and #{y[4]} all had the least actors!"
-            
-        end
+        
     end
 
     def self.genre_money(genre_name) #returns total made by all movies in genre given
