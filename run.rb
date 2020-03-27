@@ -15,15 +15,14 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/develo
 ActiveRecord::Base.logger = nil 
 
 def banner 
-    box = TTY::Box.frame(width:65, height:10, border: :thick, align: :left) do
-       " 
-        _______ __  __ _____  ____  
-       |__   __|  \\/  |  __\\ |  _ \\ 
-          | |  | \\  / | |  | | |_) |
-          | |  | |\\/| | |  | |  _ < 
-          | |  | |  | | |__| | |_) |
-          |_|  |_|  |_|_____/|____/ 
-                                    
+    box = TTY::Box.frame(width:50, height:9, border: :thick, align: :left) do
+       "          _______ __  __ _____  ____  
+         |__   __|  \\/  |  _ _\\|  _ \\ 
+            | |  | \\  / | |  | | |_) |
+            | |  | |\\/| | |  | |  _ < 
+            | |  | |  | | |__| | |_) |
+            |_|  |_|  |_|_____/|____/ 
+          Insignt on the top 20 movies!                                
                                                                                              
                                                                   
     " end
@@ -31,9 +30,11 @@ def banner
     print box 
 end
 
-@@prompt = TTY::Prompt.new
+@@prompt = TTY::Prompt.new(track_history: false)
 
 def main_menu
+    system("clear")
+    banner
     @@prompt.select("Welcome, what would you like to learn about?") do |menu|
         menu.choice 'Movies', -> {movie_choice}
         menu.choice 'Genres', -> {genre_choice}
@@ -49,8 +50,17 @@ def run_application
     main_menu
 end 
 
-def movie_choice
-    puts "what would you like to know about movies"
+def clean_slate
+    system("clear")
+    banner 
+end
+
+def movie_choice 
+   clean_slate
+    box = TTY::Box.frame(title: {top_left: 'Movies'}, align: :left) do 
+    " What would you like to know about movies?"
+    end 
+    print box 
     movie_menu = @@prompt.select("options") do |movie|
         movie.choice 'most popular genre', -> {most_produced_genre}
         movie.choice 'genre percentages breakdown', -> {avg_genre_part}
@@ -82,7 +92,11 @@ end
 
 
 def genre_choice
-    puts "what would you like to know about genres"
+    clean_slate
+    box = TTY::Box.frame(title: {top_left: 'Genres'}, align: :left) do 
+        " What would you like to know about genres?"
+        end 
+        print box
     genre_menu = @@prompt.select("options") do |genre|
         genre.choice 'Which genre produces the most money?', -> {genre_most_money}
         genre.choice 'Which genre has the bigest budget?', -> {genre_biggest_budget}
@@ -126,7 +140,11 @@ def get_input
 end
 
 def actor_choice
-    puts "what would you like to know about actors"
+    clean_slate
+    box = TTY::Box.frame(title: {top_left: 'Actors'}, align: :left) do 
+        " What would you like to know about actors?"
+        end 
+        print box
     actor_menu = @@prompt.select("options") do |actor|
         actor.choice 'actor with most diverse genre set', -> {most_diverse_actor}
         actor.choice 'actors genre breakdown', -> {actor_genre_breakdown}
