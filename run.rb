@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 # require_relative 'cli_class.rb'
 require 'bundler'
@@ -6,6 +6,7 @@ Bundler.require
 require 'require_all'
 require 'tty-box'
 require 'tty-prompt'
+require 'tty-pie'
 require_all 'lib'
 $VERBOSE = nil
 # require_relative './config/environment.rb'
@@ -135,7 +136,7 @@ def actor_choice
 end
 
 def avg_genre_part
-    puts "#{Actor.average_genre_participation_hash}"
+    create_pie(Actor.average_genre_participation_hash, 30)
     keep_exploring
 end
 
@@ -143,7 +144,7 @@ def actor_genre_breakdown
     puts "Which actor do you want to know about?"
         input = get_input
         if Actor.actor_exist?(input)
-       puts "#{Actor.get_actor_genres_percentage(input)}" 
+       create_pie(Actor.get_actor_genres_percentage(input, 10)) 
         else 
             puts "\nThat actors is not currently in any of the top 20 movies.
             \n"
@@ -154,6 +155,16 @@ end
 def most_diverse_actor
     puts "#{Actor.actor_largest_range}"
     keep_exploring
+end
+
+
+def create_pie(hash, radius)
+    data= create_pie_data(hash)
+    puts TTY::Pie.new(data:data, radius:radius)
+end
+
+def create_pie_data(hash)
+    Color.create_data(hash)
 end
 
 

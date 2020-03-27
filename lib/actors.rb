@@ -1,4 +1,5 @@
 require "pry"
+require "tty-pie"
 class Actor < ActiveRecord::Base
     has_many :actor_movie
     has_many :movies, through: :actor_movie
@@ -91,14 +92,14 @@ end
 
 
 
- #finds the percent average of all values in a hash
+ #finds the percent average of all values in a genre hash
  def self.average_genre_participation_hash
     genre_totals= Actor.genre_totals
     total= Actor.total(genre_totals)
     genre_percent=genre_totals.each do |key, val|
         genre_totals[key] = ((val.to_f/total.to_f)*100).round
     end
-    Actor.print_average_genre_participation_actors(genre_percent)
+    genre_percent
 end
 
   #gets total of all genres 
@@ -144,7 +145,7 @@ end
         genre_percent=actor_genre_count.each do |key, val|
             actor_genre_count[key] = ((val.to_f/total.to_f)*100).round
         end
-        Actor.print_actor_percent(genre_percent, actor_name)
+        genre_percent
     end
     def self.print_actor_percent(genre_percentage, actor_name)
         output =""
@@ -158,7 +159,16 @@ end
         genre_array.each {|genre| count[genre] +=1}
         count
         end
-    
+def self.test_pie()
+    data = [
+        { name: 'BTC', value: 50, color: :bright_yellow, fill: '*' },
+        { name: 'BCH', value: 50, color: :bright_green, fill: 'x' },
+        { name: 'LTC', value: 50, color: :bright_magenta, fill: '@' },
+        { name: 'ETH', value: 50, color: :bright_cyan, fill: '+' }
+      ]
+      pie_chart = TTY::Pie.new(data: data, radius: 5)
+      puts pie_chart
+end
 end
 #end of class
 

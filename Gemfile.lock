@@ -69,6 +69,9 @@ GEM
       tty-cursor (~> 0.7)
     tty-color (0.5.1)
     tty-cursor (0.7.1)
+    tty-pie (0.3.0)
+      pastel (~> 0.7.3)
+      tty-cursor (~> 0.7)
     tty-prompt (0.21.0)
       necromancer (~> 0.5.0)
       pastel (~> 0.7.0)
@@ -98,6 +101,7 @@ DEPENDENCIES
   sinatra-activerecord
   sqlite3
   tty-box
+  tty-pie
   tty-prompt
 
 BUNDLED WITH
