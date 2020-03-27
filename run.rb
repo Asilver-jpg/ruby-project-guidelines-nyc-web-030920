@@ -15,15 +15,18 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/develo
 ActiveRecord::Base.logger = nil 
 
 def banner 
-    box = TTY::Box.frame(width:50, height:9, border: :thick, align: :left) do
-       "          _______ __  __ _____  ____  
-         |__   __|  \\/  |  _ _\\|  _ \\ 
-            | |  | \\  / | |  | | |_) |
-            | |  | |\\/| | |  | |  _ < 
-            | |  | |  | | |__| | |_) |
-            |_|  |_|  |_|_____/|____/ 
-          Insignt on the top 20 movies!                                
-                                                                                             
+    box = TTY::Box.frame(width:100, height:20, border: :thick, align: :left) do
+       "         
+       ______                                
+       / ____/__  ____  ________              
+      / / __/ _ \\/ __ \\/ ___/ _ \\             
+     / /_/ /  __/ / / / /  /  __/             
+     \\_________/_/ /___/__\  \\___/_       ______
+        / __ \\____  / __(_)___  (_)___  / ____/
+        / / / / _ \\\/ /_/ / __ \\/ / __ \\/ / __  
+       / /_/ /  __/ __/ / / / / / / / / /_/ /  
+     /_____/\\___// /_/_/ /_/_/_/ /_/\\______/                        
+                                  
                                                                   
     " end
 
@@ -63,7 +66,7 @@ def movie_choice
     print box 
     movie_menu = @@prompt.select("options") do |movie|
         movie.choice 'Most popular genre', -> {most_produced_genre}
-        movie.choice 'Distribution of movies by genre', -> {avg_genre_part}
+        movie.choice 'Genre percentages breakdown', -> {avg_genre_part}
         movie.choice 'Back', -> {main_menu}
         movie.choice 'Exit', -> {exit}
     end
@@ -146,15 +149,15 @@ def actor_choice
         end 
         print box
     actor_menu = @@prompt.select("options") do |actor|
-        actor.choice 'Actor(s) who star in the most genres', -> {most_diverse_actor}
-        actor.choice 'Percentage of genres for an actor based on their movies', -> {actor_genre_breakdown}
+        actor.choice 'Actor with most diverse genre set', -> {most_diverse_actor}
+        actor.choice 'Actors genre breakdown', -> {actor_genre_breakdown}
         actor.choice 'Back', -> {main_menu}
         actor.choice 'Exit', -> {exit}
     end
 end
 
 def avg_genre_part
-    create_pie(Actor.average_genre_participation_hash, 20)
+    create_pie(Actor.average_genre_participation_hash, 30)
     keep_exploring
 end
 
